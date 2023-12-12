@@ -17,6 +17,7 @@
     "ws": "^7.5.6"
   },
   "scripts": {
+    "build": "tsc",
     "clean": "if exist dist ( rd /S /Q dist)",
     "updateLink": "npm run clean && tsc && npm rm lol-esports-spectate -g && npm link",
     "test": "echo \"Error: no test specified\" && exit 1"
