@@ -74,8 +74,11 @@ export class ChampSelectStateApi extends TypedEmitter<ChampSelectStateApiEvents>
                     let members = JSON.parse(data)
                     Array.prototype.forEach.call(members ,(member, idx) => {
                         // console.log(member)
-                        if (!this.summonerNameMap.has(member.summonerId))
-                            this.summonerNameMap.set(member.summonerId, member.summonerName)
+                        this.leagueApi.request(`lol-summoner/v1/summoners/${member.summonerId}`, (data: string) => {
+                            var summoner = JSON.parse(data);
+                            if (!this.summonerNameMap.has(member.summonerId))
+                                this.summonerNameMap.set(member.summonerId, summoner.gameName)
+                        });
                     });
                 }, 
                 () => { err => console.error("Error getting summoner names. Trying again in 5 seconds.");
